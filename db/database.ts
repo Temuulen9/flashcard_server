@@ -1,22 +1,21 @@
 // db/database.ts
-import { Client } from "https://deno.land/x/postgres/mod.ts";
+import { MongoClient } from "npm:mongodb@5.6.0";
 
-const client = new Client({
-  user: "your_user",
-  password: "your_password",
-  database: "your_database",
-  hostname: "localhost",
-  port: 5432,
-});
+// Initialize the MongoDB client
+const client = new MongoClient("mongodb+srv://9temuulen9:9temuulen9@flash-card-app-dev-clus.irjrb.mongodb.net/?retryWrites=true&w=majority&appName=flash-card-app-dev-cluster");
 
-export async function connectToDatabase() {
+// Connect to the MongoDB server
+try {
   await client.connect();
-  console.log("Connected to the database");
+  await client.db("sample_mflix").command({ ping: 1 });
+  console.log("Connected to MongoDB");
+} catch (error) {
+  console.error("Error connecting to MongoDB:", error);
+  Deno.exit(1);
 }
 
-export async function disconnectFromDatabase() {
-  await client.end();
-  console.log("Disconnected from the database");
-}
+console.log('connected to MongoDb');
 
-export { client };
+
+
+export {client};

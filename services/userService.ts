@@ -1,3 +1,6 @@
+import { log } from "node:console";
+import { client } from "../db/database.ts";
+
 // services/userService.ts
 interface User {
     id: number;
@@ -10,7 +13,17 @@ const users: User[] = [
     { id: 2, name: "Bob", email: "bob@example.com" },
 ];
 
+const db= client.db("sample_flix");
+const collection = db.collection("users");
+const user = await collection.findOne({"name": "Robb Stark"});
+log(user );
+
+
 const getAllUsers = async (): Promise<User[]> => {
+    
+
+
+    
     return users;
 };
 
