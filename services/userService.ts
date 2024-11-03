@@ -1,34 +1,65 @@
-import { log } from "node:console";
-import { client } from "../db/database.ts";
+import { userDb } from "../db/database.ts";
+import {  BSON } from "npm:mongodb@5.6.0";
 
-// services/userService.ts
+
 interface User {
-    id: number;
+    _id: string;  // MongoDB ObjectId as string
     name: string;
     email: string;
+    // Add other fields as necessary
 }
-
-const users: User[] = [
-    { id: 1, name: "Alice", email: "alice@example.com" },
-    { id: 2, name: "Bob", email: "bob@example.com" },
-];
-
-const db= client.db("sample_flix");
-const collection = db.collection("users");
-const user = await collection.findOne({"name": "Robb Stark"});
-log(user );
 
 
 const getAllUsers = async (): Promise<User[]> => {
     
+    const collection = userDb.collection("users");
 
+    const usersCursor = await collection.find({},{ projection: { password: 0} });
+    const documents = await usersCursor.toArray();
 
-    
+        // Map the MongoDB documents to the User interface
+        const users: User[] = documents.map((doc : any) => ({
+            _id: doc._id.toString(),  // Convert ObjectId to string
+            name: doc.name,
+            email: doc.email,
+        }));
+        
     return users;
 };
 
-const getUserById = async (id: number): Promise<User | null> => {
-    return users.find((user) => user.id === id) || null;
+const getUserById = async (id: string): Promise<User | null> => {
+    try {
+       
+
+        const collection = userDb.collection("users");
+        const objectId = new BSON.ObjectId(id);
+        const userDoc = await collection.findOne({ _id: objectId }, { projection: { password: 0 } });
+    
+        if (!userDoc) {
+            return null; // If no user is found, return null
+        }
+    
+        // Map the MongoDB document to the User interface
+        const user: User = {
+            _id: userDoc._id.toString(),  // Convert ObjectId to string
+            name: userDoc.name,
+            email: userDoc.email,
+            // Include other fields as needed
+        };
+        return user;
+    } catch (error) {
+        console.error("Error fetching user by ID:", error);
+        throw error;
+    }
 };
+
+
+// const getUserById = async (id: string): Promise<any> => {
+//     const collection = userDb.collection("users");
+//     const objectId = new BSON.ObjectId(id);
+//     const user = await collection.findOne({_id: objectId},{ projection: { password: 0} });
+
+//     return user;
+// };
 
 export { getAllUsers, getUserById };
