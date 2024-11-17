@@ -6,7 +6,7 @@ COPY . .
 RUN deno cache main.ts
 
 
-USER deno
+USER root
 EXPOSE 8000
 
 CMD ["run", "-A", "main.ts"]

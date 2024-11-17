@@ -6,17 +6,25 @@ const collection = userDb.collection("users");
 
 const registerUser = async (name: string, email: string, password: string) => {
   try {
-    const _id = await collection.insertOne({
-      name,
-      email,
-      password: await bcrypt.hash(password),
-    });
+    const user = await collection.findOne({ email: email });
 
-    const user = await collection.findOne({ _id: _id.insertedId }, {
-      projection: { _id: 0, password: 0 },
-    });
+    if (user) {
+      return {
+        "message": "User already registered",
+      };
+    } else {
+      const _id = await collection.insertOne({
+        name,
+        email,
+        password: await bcrypt.hash(password),
+      });
 
-    return user;
+      const user = await collection.findOne({ _id: _id.insertedId }, {
+        projection: { _id: 0, password: 0 },
+      });
+
+      return user;
+    }
   } catch (e) {
     return e;
   }
