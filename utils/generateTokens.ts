@@ -3,8 +3,6 @@ import { create, getNumericDate } from "https://deno.land/x/djwt/mod.ts";
 const ACCESS_TOKEN_EXPIRY = 60; // Access token expiration time in seconds (15 minutes)
 const REFRESH_TOKEN_EXPIRY = 60 * 60 * 24 * 7; // Refresh token expiration time in seconds (7 days)
 
-
-
 // Generate Access Token
 async function generateAccessToken(userId: string) {
   const key = await getSecretKey();
@@ -24,7 +22,7 @@ async function generateRefreshToken(userId: string) {
     key,
   );
 }
-async function getSecretKey(){
+async function getSecretKey() {
   const base64Key = Deno.env.get("SECRET_KEY");
   const rawKey = Uint8Array.from(atob(base64Key), (c) => c.charCodeAt(0));
   const key = await crypto.subtle.importKey(
@@ -37,6 +35,5 @@ async function getSecretKey(){
 
   return key;
 }
-
 
 export { generateAccessToken, generateRefreshToken, getSecretKey };

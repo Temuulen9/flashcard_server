@@ -11,7 +11,7 @@ try {
   await client.connect();
 
   // connect to Users Database
-  userDb = client.db("sample_mflix");
+  userDb = client.db("memigo_dev_users");
 
   console.log("Connected to MongoDB");
 } catch (error) {

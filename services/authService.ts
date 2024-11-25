@@ -4,9 +4,14 @@ import { UserSchema } from "../schemas/user.ts";
 
 const collection = userDb.collection("users");
 
-const registerUser = async (name: string, email: string, password: string) => {
+const registerUser = async (
+  firsname: string,
+  lastname: string,
+  phoneNumber: string,
+  password: string,
+) => {
   try {
-    const user = await collection.findOne({ email: email });
+    const user = await collection.findOne({ phoneNumber: phoneNumber });
 
     if (user) {
       return {
@@ -14,8 +19,9 @@ const registerUser = async (name: string, email: string, password: string) => {
       };
     } else {
       const _id = await collection.insertOne({
-        name,
-        email,
+        firsname,
+        lastname,
+        phoneNumber,
         password: await bcrypt.hash(password),
       });
 
@@ -30,9 +36,9 @@ const registerUser = async (name: string, email: string, password: string) => {
   }
 };
 
-const loginUser = async (email: string, password: string) => {
+const loginUser = async (phoneNumber: string) => {
   try {
-    const user = await collection.findOne({ email: email });
+    const user = await collection.findOne({ phoneNumber: phoneNumber });
 
     return user;
   } catch (e) {

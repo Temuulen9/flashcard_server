@@ -13,8 +13,9 @@ const getAllUsers = async (): Promise<UserSchema[]> => {
   // Map the MongoDB documents to the User interface
   const users: UserSchema[] = documents.map((doc: any) => ({
     _id: doc._id.toString(), // Convert ObjectId to string
-    name: doc.name,
-    email: doc.email,
+    firstname: doc.firstname,
+    lastname: doc.lastname,
+    phoneNumber: doc.phoneNumber,
   }));
 
   return users;
@@ -35,8 +36,9 @@ const getUserById = async (id: string): Promise<UserSchema | null> => {
     // Map the MongoDB document to the User interface
     const user: UserSchema = {
       _id: userDoc._id.toString(), // Convert ObjectId to string
-      name: userDoc.name,
-      email: userDoc.email,
+      firstname: userDoc.firstname,
+      lastname: userDoc.lastname,
+      phoneNumber: userDoc.phoneNumber,
       // Include other fields as needed
     };
     return user;

@@ -38,17 +38,18 @@ const refreshToken = async (ctx: Context) => {
 };
 
 const registerUserController = async (ctx: Context) => {
-  const { name, email, password } = await ctx.request.body.json();
+  const { firstname, lastname, phoneNumber, password } = await ctx.request.body
+    .json();
 
-  const user = await registerUser(name, email, password);
+  const user = await registerUser(firstname, lastname, phoneNumber, password);
 
   ctx.response.body = user;
 };
 
 const loginUserController = async (ctx: Context) => {
-  const { email, password } = await ctx.request.body.json();
+  const { phoneNumber, password } = await ctx.request.body.json();
 
-  const user = await loginUser(email, password);
+  const user = await loginUser(phoneNumber);
 
   if (!user) {
     ctx.response.body = 404;

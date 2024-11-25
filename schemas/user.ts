@@ -1,7 +1,8 @@
 interface UserSchema {
   _id: string; // MongoDB ObjectId as string
-  name: string;
-  email: string;
+  firstname: string;
+  lastname: string;
+  phoneNumber: string;
   // Add other fields as necessary
 }
 

@@ -2,7 +2,6 @@ import { Context } from "https://deno.land/x/oak/mod.ts";
 import { verify } from "https://deno.land/x/djwt/mod.ts";
 import { getSecretKey } from "./generateTokens.ts";
 
-
 async function authMiddleware(ctx: Context, next: () => Promise<unknown>) {
   const authHeader = ctx.request.headers.get("Authorization");
   if (!authHeader) {
