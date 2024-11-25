@@ -2,13 +2,6 @@ import { userDb } from "../db/database.ts";
 import { BSON } from "npm:mongodb@5.6.0";
 import { UserSchema } from "../schemas/user.ts";
 
-// interface User {
-//     _id: string;  // MongoDB ObjectId as string
-//     name: string;
-//     email: string;
-//     // Add other fields as necessary
-// }
-
 const collection = userDb.collection("users");
 
 const getAllUsers = async (): Promise<UserSchema[]> => {
@@ -52,13 +45,5 @@ const getUserById = async (id: string): Promise<UserSchema | null> => {
     throw error;
   }
 };
-
-// const getUserById = async (id: string): Promise<any> => {
-//     const collection = userDb.collection("users");
-//     const objectId = new BSON.ObjectId(id);
-//     const user = await collection.findOne({_id: objectId},{ projection: { password: 0} });
-
-//     return user;
-// };
 
 export { getAllUsers, getUserById };

@@ -20,4 +20,16 @@ const getUserByIdController = async (ctx: any) => {
   }
 };
 
-export { getAllUsersController, getUserByIdController };
+const mGetUserInfoController = async (ctx: any) => {
+  const id = ctx.params.id;
+  const user = await getUserById(ctx.state.userId);
+  if (user) {
+    ctx.response.status = 200;
+    ctx.response.body = { success: true, data: user };
+  } else {
+    ctx.response.status = 404;
+    ctx.response.body = { success: false, message: "User not found" };
+  }
+};
+
+export { getAllUsersController, getUserByIdController, mGetUserInfoController };

@@ -3,6 +3,7 @@ import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import { create } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 import { Context } from "https://deno.land/x/oak@v17.1.2/mod.ts";
 import "@std/dotenv/load";
+import { generateAccessToken, generateRefreshToken } from "../utils/generateTokens.ts";
 
 const registerUserController = async (ctx: Context) => {
   const { name, email, password } = await ctx.request.body.json();
@@ -33,25 +34,11 @@ const loginUserController = async (ctx: Context) => {
     return;
   }
 
+  const accessToken = await generateAccessToken(user._id);
+  const refreshToken = await generateRefreshToken(user._id);
 
-  const base64Key = Deno.env.get("SECRET_KEY");
 
-  const rawKey = Uint8Array.from(atob(base64Key), (char) => char.charCodeAt(0));
-  const importedKey = await crypto.subtle.importKey(
-    "raw",
-    rawKey,
-    { name: "HMAC", hash: "SHA-512" },
-    true,
-    ["sign", "verify"],
-  );
-
-  const jwt = await create(
-    { alg: "HS512", typ: "JWT" },
-    { _id: user._id },
-    importedKey,
-  );
-
-  ctx.response.body = jwt;
+  ctx.response.body = {"accessToken": accessToken, "refreshToken": refreshToken,};
 };
 
 export { loginUserController, registerUserController };
