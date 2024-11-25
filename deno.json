@@ -7,5 +7,13 @@
     "@oak/oak": "jsr:@oak/oak@^17.1.2",
     "@std/assert": "jsr:@std/assert@1",
     "@std/dotenv": "jsr:@std/dotenv@^0.225.2"
+  },
+  "deploy": {
+    "project": "44d62bba-4faa-4dbc-a4c9-10dd716c8cc9",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
   }
 }
