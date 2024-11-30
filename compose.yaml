@@ -1,9 +1,16 @@
 services:
-  app:
-    container_name: flashcard_server
+  server:
+    container_name: memigo_server
     build: .
     ports:
       - "80:80"
-    volumes:
-      - .:/app
+
     command: deno run -A --watch main.ts
+
+    develop:
+      watch:
+        - path: deno.json
+          action: rebuild
+        - path: ./
+          target: /app
+          action: sync

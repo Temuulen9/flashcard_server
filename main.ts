@@ -7,5 +7,5 @@ const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-console.log("Server running on http://localhost:8000");
-await app.listen({ port: 8000 });
+console.log("Server running on http://localhost:80");
+await app.listen({ port: 80 });
