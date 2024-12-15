@@ -47,9 +47,9 @@ const registerUserController = async (ctx: Context) => {
 };
 
 const loginUserController = async (ctx: Context) => {
-  const { phoneNumber, password } = await ctx.request.body.json();
-
-  const user = await loginUser(phoneNumber);
+  const  { phoneNumber, password } = await ctx.request.body.json();
+  const phone : string = phoneNumber as string ;
+  const user = await loginUser(phone);
 
   if (!user) {
     ctx.response.body = 404;
