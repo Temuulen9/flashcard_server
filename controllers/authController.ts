@@ -59,7 +59,7 @@ const loginUserController = async (ctx: Context) => {
     return;
   }
 
-  if (!await bcrypt.(password, user.password)) {
+  if (!await bcrypt.compareSync(password, user.password)) {
     ctx.response.body = 401;
     ctx.response.body = {
       "message": "Incorrect password",
