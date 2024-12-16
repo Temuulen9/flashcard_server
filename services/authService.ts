@@ -21,7 +21,7 @@ const registerUser = async (
         firstname,
         lastname,
         phoneNumber,
-        password: await bcrypt.hash(password),
+        password: await bcrypt.hashSync(password),
       });
 
       const user = await collection.findOne({ _id: _id.insertedId }, {

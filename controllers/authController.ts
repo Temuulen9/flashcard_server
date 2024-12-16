@@ -61,7 +61,7 @@ const loginUserController = async (ctx: Context) => {
 
   console.log(password);
   console.log(user.password);
-  if (!await bcrypt.compare("password", "$2a$10$cL4jeMU5C40AA8I8xw5GMudAAWMmY7cITBeeXNG3lvc1at5mgk2h")) {
+  if (!await bcrypt.compareSync("password", "$2a$10$cL4jeMU5C40AA8I8xw5GMudAAWMmY7cITBeeXNG3lvc1at5mgk2h")) {
     ctx.response.body = 401;
     ctx.response.body = {
       "message": "Incorrect password",
