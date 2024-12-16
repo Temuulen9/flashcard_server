@@ -59,6 +59,8 @@ const loginUserController = async (ctx: Context) => {
     return;
   }
 
+  console.log(password),
+  console.log(user.password),
   if (!await bcrypt.compare(password, user.password)) {
     ctx.response.body = 401;
     ctx.response.body = {
