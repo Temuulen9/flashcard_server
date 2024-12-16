@@ -67,12 +67,12 @@ const loginUserController = async (ctx: Context) => {
   //   return;
   // }
 
-  const accessToken = await generateAccessToken(user._id);
-  const refreshToken = await generateRefreshToken(user._id);
+  // const accessToken = await generateAccessToken(user._id);
+  // const refreshToken = await generateRefreshToken(user._id);
 
   ctx.response.body = {
-    "accessToken": accessToken,
-    "refreshToken": refreshToken,
+    "accessToken": "accessToken",
+    "refreshToken": "refreshToken",
   };
 };
 
