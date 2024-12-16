@@ -9,34 +9,6 @@ import {
   getSecretKey,
 } from "../utils/generateTokens.ts";
 
-const refreshToken = async (ctx: Context) => {
-  const { refreshToken } = await ctx.request.body.json();
-
-  try {
-    const key = await getSecretKey();
-
-    const payload = await verify(refreshToken, key, "HS256");
-
-    const currentTime = Math.floor(Date.now() / 1000); // Current Unix timestamp
-
-    if (payload.exp && payload.exp < currentTime) {
-      // Refresh token expired
-      ctx.response.status = 401;
-      ctx.response.body = { error: "Refresh token expired" };
-      return;
-    }
-
-    const newAccessToken = await generateAccessToken(payload.userId);
-
-    // Send back the new access token
-    ctx.response.status = 200;
-    ctx.response.body = { accessToken: newAccessToken };
-  } catch (err) {
-    ctx.response.status = 401;
-    ctx.response.body = { error: "Invalid refresh token" };
-  }
-};
-
 const registerUserController = async (ctx: Context) => {
   const { firstname, lastname, phoneNumber, password } = await ctx.request.body
     .json();
@@ -67,13 +39,13 @@ const loginUserController = async (ctx: Context) => {
     return;
   }
 
-  const accessToken = await generateAccessToken(user._id);
-  const refreshToken = await generateRefreshToken(user._id);
+  // const accessToken = await generateAccessToken(user._id);
+  // const refreshToken = await generateRefreshToken(user._id);
 
   ctx.response.body = {
-    "accessToken": accessToken,
-    "refreshToken": refreshToken,
+    "accessToken": "accessToken",
+    "refreshToken": "refreshToken",
   };
 };
 
-export { loginUserController, refreshToken, registerUserController };
+export { loginUserController, registerUserController };
