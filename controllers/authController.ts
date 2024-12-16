@@ -1,5 +1,5 @@
 import { loginUser, registerUser } from "../services/authService.ts";
-import * as bcrypt from "https://deno.land/x/bcryptjs@v2.4.3/mod.ts";
+import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import { create, decode, verify } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 import { Context } from "https://deno.land/x/oak@v17.1.2/mod.ts";
 import "@std/dotenv/load";
