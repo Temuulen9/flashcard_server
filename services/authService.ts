@@ -4,7 +4,7 @@ import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 const collection = userDb.collection("users");
 
 const registerUser = async (
-  firsname: string,
+  firstname: string,
   lastname: string,
   phoneNumber: string,
   password: string,
@@ -18,7 +18,7 @@ const registerUser = async (
       };
     } else {
       const _id = await collection.insertOne({
-        firsname,
+        firstname,
         lastname,
         phoneNumber,
         password: await bcrypt.hash(password),
