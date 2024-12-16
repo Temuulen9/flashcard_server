@@ -1,6 +1,5 @@
 import { userDb } from "../db/database.ts";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
-import { UserSchema } from "../schemas/user.ts";
 
 const collection = userDb.collection("users");
 
