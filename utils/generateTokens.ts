@@ -26,7 +26,8 @@ async function generateRefreshToken(userId: string) {
 }
 async function getSecretKey() {
   const base64Key = Deno.env.get("SECRET_KEY");
-  const rawKey = Uint8Array.from(atob("base64Key"), (c) => c.charCodeAt(0));
+  console.log('base64Key ' + base64Key);
+  const rawKey = Uint8Array.from(atob(base64Key), (c) => c.charCodeAt(0));
   const key = await crypto.subtle.importKey(
     "raw",
     rawKey,
