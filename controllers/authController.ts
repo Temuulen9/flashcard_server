@@ -59,13 +59,13 @@ const loginUserController = async (ctx: Context) => {
     return;
   }
 
-  // if (!await bcrypt.compare(password, user.password)) {
-  //   ctx.response.body = 401;
-  //   ctx.response.body = {
-  //     "message": "Incorrect password",
-  //   };
-  //   return;
-  // }
+  if (!await bcrypt.compare(password, user.password)) {
+    ctx.response.body = 401;
+    ctx.response.body = {
+      "message": "Incorrect password",
+    };
+    return;
+  }
 
   // const accessToken = await generateAccessToken(user._id);
   // const refreshToken = await generateRefreshToken(user._id);
