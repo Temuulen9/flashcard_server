@@ -6,6 +6,7 @@ const REFRESH_TOKEN_EXPIRY = 60 * 60 * 24 * 7; // Refresh token expiration time 
 // Generate Access Token
 async function generateAccessToken(userId: string) {
   const key = await getSecretKey();
+  console.log(key);
   return await create(
     { alg: "HS256", typ: "JWT" },
     { userId, exp: getNumericDate(ACCESS_TOKEN_EXPIRY) },
@@ -16,6 +17,7 @@ async function generateAccessToken(userId: string) {
 // Generate Refresh Token
 async function generateRefreshToken(userId: string) {
   const key = await getSecretKey();
+  console.log(key);
   return await create(
     { alg: "HS256", typ: "JWT" },
     { userId, exp: getNumericDate(REFRESH_TOKEN_EXPIRY) },
